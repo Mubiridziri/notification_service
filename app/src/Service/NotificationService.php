@@ -2,7 +2,9 @@
 
 namespace App\Service;
 
+use App\Exception\InvalidChannelException;
 use App\Exception\InvalidContextException;
+use App\Service\Channel\NotificationChannelInterface;
 
 /**
  * Main entrypoint to send all notifications
@@ -26,6 +28,7 @@ class NotificationService
      * @param array $context additional context for generating notification
      * @return array return array of failure messages
      * @throws InvalidContextException
+     * @throws InvalidChannelException
      */
     public function notify(array $recipients, string $message, array $context = []): array
     {
@@ -38,6 +41,9 @@ class NotificationService
         }
 
         foreach ($this->channels as $channel) {
+            if(!($channel instanceof NotificationChannelInterface)) {
+                throw new InvalidChannelException();
+            }
             if (in_array($context[self::TARGET], $channel->getType())) {
                 $failures[] = $channel->notify($recipients, $message, $context);
             }
