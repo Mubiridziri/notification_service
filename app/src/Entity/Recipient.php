@@ -2,29 +2,127 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity]
+#[ORM\Table(name: "recipients")]
 class Recipient
 {
-    private ?string $telegramAccount;
+    #[ORM\Id]
+    #[ORM\Column(type: "integer")]
+    #[ORM\GeneratedValue]
+    private ?int $id;
 
+    #[ORM\Column(type: "string")]
+    private string $name;
+
+    #[ORM\Column(type: "string", nullable: true)]
+    private ?string $telegramUsername;
+
+    #[ORM\Column(type: "string", nullable: true)]
+    private ?string $telegramId;
+
+    #[ORM\Column(type: "string", nullable: true)]
     private ?string $phoneNumber;
 
+    #[ORM\Column(type: "string", nullable: true)]
     private ?string $emailAddress;
+
+    #[ORM\Column(type: "datetime")]
+    private ?\DateTime $createdAt;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     /**
      * @return string|null
      */
-    public function getTelegramAccount(): ?string
+    public function getTelegramUsername(): ?string
     {
-        return $this->telegramAccount;
+        return $this->telegramUsername;
     }
 
     /**
-     * @param string|null $telegramAccount
+     * @param string|null $telegramUsername
      * @return Recipient
      */
-    public function setTelegramAccount(?string $telegramAccount): Recipient
+    public function setTelegramUsername(?string $telegramUsername): Recipient
     {
-        $this->telegramAccount = $telegramAccount;
+        $this->telegramUsername = $telegramUsername;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTelegramId(): ?string
+    {
+        return $this->telegramId;
+    }
+
+    /**
+     * @param string|null $telegramId
+     * @return Recipient
+     */
+    public function setTelegramId(?string $telegramId): Recipient
+    {
+        $this->telegramId = $telegramId;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int|null $id
+     * @return Recipient
+     */
+    public function setId(?int $id): Recipient
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     * @return Recipient
+     */
+    public function setName(string $name): Recipient
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getCreatedAt(): ?\DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime|null $createdAt
+     * @return Recipient
+     */
+    public function setCreatedAt(?\DateTime $createdAt): Recipient
+    {
+        $this->createdAt = $createdAt;
         return $this;
     }
 
