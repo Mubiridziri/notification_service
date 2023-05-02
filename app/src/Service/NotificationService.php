@@ -44,7 +44,7 @@ class NotificationService
             if(!($channel instanceof NotificationChannelInterface)) {
                 throw new InvalidChannelException();
             }
-            if (in_array($context[self::TARGET], $channel->getType())) {
+            if (in_array($channel->getType(), $context[self::TARGET])) {
                 $failures[] = $channel->notify($recipients, $message, $context);
             }
         }
