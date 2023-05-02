@@ -11,7 +11,18 @@ use App\Service\Channel\NotificationChannelInterface;
  */
 class NotificationService
 {
+    /**
+     * Target systems for messages
+     * @example ['email', 'sms']
+     */
     const TARGET = 'target';
+
+    /**
+     * Send messages with guaranteed delivery
+     * Messages will don't send on terminate event
+     * @example true
+     */
+    const GUARANTEED_DELIVERY = 'guaranteed_delivery';
 
     private array $channels = [];
 
